@@ -25,7 +25,7 @@ fn main() {
                     println!("{} is a shell builtin", &parts[1..].join(" "));
                 }
                 else {
-                    println!("{}: command not found", &parts[1..].join(" "));
+                    println!("{}: not found", &parts[1..].join(" "));
                 }
 
             },
