@@ -32,10 +32,10 @@ fn main() {
                             if dir
                                 .join(&parts[1..].join(" "))
                                 .with_extension("")
-                                .with_extension("exe")
+                                //.with_extension("exe")
                                 .is_file()
                             {
-                                /*#[cfg(target_os = "windows")]
+                                #[cfg(target_os = "windows")]
                                 {
                                     if dir
                                         .join(&parts[1..].join(" "))
@@ -54,11 +54,11 @@ fn main() {
                                         break;
                                     }
                                 }
-                                */
-                                //#[cfg(target_os = "linux")]
-                                //{
-                                    //println!("{}", &parts[1..].join(" "));
 
+                                #[cfg(target_os = "linux")]
+                                {
+                                    //println!("{}", &parts[1..].join(" "));
+                                    
                                     if dir.join(&parts[1..].join(" ")).as_path().is_executable() {
                                         println!(
                                             "{} is {}",
@@ -68,7 +68,7 @@ fn main() {
                                         found = true;
                                         break;
                                     }
-                                //}
+                                }
                             }
                         }
 
