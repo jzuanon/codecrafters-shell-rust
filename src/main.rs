@@ -23,6 +23,14 @@ fn main() {
                 break;
             }
             Some(&"type") => {
+                println!(
+                    "OS: {}\nFamily: {}\nCPU: {}\nDebug: {}",
+                    std::env::consts::OS,
+                    std::env::consts::FAMILY,
+                    std::env::consts::ARCH,
+                    cfg!(debug_assertions).to_string()
+                );
+
                 if builtins.contains(&parts[1..].join(" ").as_str()) {
                     println!("{} is a shell builtin", &parts[1..].join(" "));
                 } else {
@@ -44,7 +52,8 @@ fn main() {
                                         .is_executable()
                                     {
                                         println!(
-                                            "{} is {}", &parts[1..].join(" "),
+                                            "{} is {}",
+                                            &parts[1..].join(" "),
                                             dir.join(&parts[1..].join(" "))
                                                 .with_extension("exe")
                                                 .display()
@@ -57,7 +66,11 @@ fn main() {
                                 #[cfg(target_os = "linux")]
                                 {
                                     if dir.join(&parts[1..].join(" ")).as_path().is_executable() {
-                                        println!("{} is {}", &parts[1..].join(" "), dir.join(&parts[1..].join(" ")).display());
+                                        println!(
+                                            "{} is {}",
+                                            &parts[1..].join(" "),
+                                            dir.join(&parts[1..].join(" ")).display()
+                                        );
                                         found = true;
                                         break;
                                     }
