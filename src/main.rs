@@ -16,24 +16,16 @@ fn main() {
 
         let parts: Vec<&str> = command.split_whitespace().collect();
         match parts.get(0) {
-            Some(&"echo") => {
-                println!("{}", &parts[1..].join(" "));
-            }
+            Some(&"echo") => { println!("{}", &parts[1..].join(" ")); }
             Some(&"exit") => {
                 break;
             }
             Some(&"type") => {
-                println!(
-                    "OS: {}\nFamily: {}\nCPU: {}\nDebug: {}",
-                    std::env::consts::OS,
-                    std::env::consts::FAMILY,
-                    std::env::consts::ARCH,
-                    cfg!(debug_assertions).to_string()
-                );
-
-                if builtins.contains(&parts[1..].join(" ").as_str()) {
+                if builtins.contains(&parts[1..].join(" ").as_str()) 
+                {
                     println!("{} is a shell builtin", &parts[1..].join(" "));
-                } else {
+                } 
+                else {
                     if let Some(path) = env::var_os("PATH") {
                         let mut found = false;
                         for dir in env::split_paths(&path) {
@@ -65,6 +57,8 @@ fn main() {
 
                                 #[cfg(target_os = "linux")]
                                 {
+                                    println!("{}", &parts[1..].join(" "));
+                                    
                                     if dir.join(&parts[1..].join(" ")).as_path().is_executable() {
                                         println!(
                                             "{} is {}",
