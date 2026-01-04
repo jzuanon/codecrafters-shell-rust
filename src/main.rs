@@ -31,7 +31,7 @@ fn main() {
                         for dir in env::split_paths(&path) {
                             if dir
                                 .join(&parts[1..].join(" "))
-                                .with_extension("")
+                                //.with_extension("")
                                 //.with_extension("exe")
                                 .is_file()
                             {
