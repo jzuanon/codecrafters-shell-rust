@@ -37,7 +37,7 @@ fn main() {
                                 #[cfg(target_os = "linux")]
                                 let metadata = fs::metadata(dir.join(&parts[1..].join(" ")))?;
                                 #[cfg(target_os = "linux")]
-                                if metadata.permissions() & 0o111 != 0 {
+                                if metadata.mode() & 0o111 != 0 {
                                     found = true;
                                     break;
                                 }
