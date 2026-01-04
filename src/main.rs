@@ -1,4 +1,4 @@
-use std::{env, fs};
+use std::{env};
 #[allow(unused_imports)]
 use std::io::{self, Write};
 
@@ -35,9 +35,7 @@ fn main() {
                                 break;
                                                                
                                 #[cfg(target_os = "linux")]
-                                let metadata = fs::metadata(dir.join(&parts[1..].join(" ")))?;
-                                #[cfg(target_os = "linux")]
-                                if metadata.mode() & 0o111 != 0 {
+                                if dir.join(&parts[1..].join(" ")).is_executable() {
                                     found = true;
                                     break;
                                 }
