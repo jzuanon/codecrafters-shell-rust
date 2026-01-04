@@ -44,7 +44,7 @@ fn main() {
                                         .is_executable()
                                     {
                                         println!(
-                                            "{}",
+                                            "{} is {}", &parts[1..].join(" "),
                                             dir.join(&parts[1..].join(" "))
                                                 .with_extension("exe")
                                                 .display()
@@ -57,7 +57,7 @@ fn main() {
                                 #[cfg(target_os = "linux")]
                                 {
                                     if dir.join(&parts[1..].join(" ")).as_path().is_executable() {
-                                        println!("{}", dir.join(&parts[1..].join(" ")).display());
+                                        println!("{} is {}", &parts[1..].join(" "), dir.join(&parts[1..].join(" ")).display());
                                         found = true;
                                         break;
                                     }
