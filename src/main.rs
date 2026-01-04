@@ -1,6 +1,8 @@
-use std::{env};
+use std::env;
 #[allow(unused_imports)]
 use std::io::{self, Write};
+
+use is_executable::IsExecutable;
 
 fn main() {
     let builtins = ["echo", "exit", "type"];
@@ -27,22 +29,43 @@ fn main() {
                     if let Some(path) = env::var_os("PATH") {
                         let mut found = false;
                         for dir in env::split_paths(&path) {
-                            if dir.join(&parts[1..].join(" ")).with_extension("").with_extension("exe").is_file() {
-
+                            if dir
+                                .join(&parts[1..].join(" "))
+                                .with_extension("")
+                                .with_extension("exe")
+                                .is_file()
+                            {
                                 #[cfg(target_os = "windows")]
-                                println!("{}", dir.join(&parts[1..].join(" ")).with_extension("exe").display());
-                                found = true;
-                                break;
-                                                               
+                                {
+                                    if dir
+                                        .join(&parts[1..].join(" "))
+                                        .with_extension("exe")
+                                        .as_path()
+                                        .is_executable()
+                                    {
+                                        println!(
+                                            "{}",
+                                            dir.join(&parts[1..].join(" "))
+                                                .with_extension("exe")
+                                                .display()
+                                        );
+                                        found = true;
+                                        break;
+                                    }
+                                }
+
                                 #[cfg(target_os = "linux")]
-                                if dir.join(&parts[1..].join(" ")).is_executable() {
-                                    found = true;
-                                    break;
+                                {
+                                    if dir.join(&parts[1..].join(" ")).as_path().is_executable() {
+                                        println!("{}", dir.join(&parts[1..].join(" ")).display());
+                                        found = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
 
-                        if !found  {
+                        if !found {
                             println!("{}: not found", &parts[1..].join(" "));
                         }
                     }
